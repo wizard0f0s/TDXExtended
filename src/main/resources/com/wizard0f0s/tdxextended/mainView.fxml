@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wizard0f0s.tdxextended.MainController">
+    <padding>
+        <Insets bottom="20.0" left="2.0" right="2.0" top="0.0"/>
+    </padding>
+
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <items>
+                        <MenuItem text="Select Server Connection" onAction="#showNewServerDialog">
+                        </MenuItem>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="Bulk Assign Users to Groups" onAction="#bulkAssignUsersToGroups"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="Exit" onAction="#handleExit"/>
+                    </items>
+                </Menu>
+            </MenuBar>
+        </VBox>
+    </top>
+
+    <right>
+        <GridPane>
+        </GridPane>
+
+    </right>
+    <left>
+
+    </left>
+    <center>
+
+    </center>
+    <bottom>
+        <GridPane>
+
+        </GridPane>
+
+    </bottom>
+</BorderPane>
