@@ -12,12 +12,31 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("mainView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("Hello!");
+        stage.setTitle("TeamDynamix Extender");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        try {
+            ServerData.getInstance().saveServers();
+            super.stop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void init() throws Exception {
+        try {
+            ServerData.getInstance().loadServers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

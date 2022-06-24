@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.text.Font?>
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.wizard0f0s.tdxextended.MainController">
     <padding>
         <Insets bottom="20.0" left="2.0" right="2.0" top="0.0"/>
@@ -24,6 +25,25 @@
                     </items>
                 </Menu>
             </MenuBar>
+            <HBox>
+                <Label fx:id="accountLabel" text="Active Account">
+                    <font>
+                        <Font name="Times New Roman bold" size="20"/>
+                    </font>
+                </Label>
+                <Separator/>
+                <Label text="\@">
+                    <font>
+                        <Font name="Times New Roman italics" size="20"/>
+                    </font>
+                </Label>
+                <Separator/>
+                <Label fx:id="serverLabel" text="Active Server">
+                    <font>
+                        <Font name="Times New Roman bold" size="20"/>
+                    </font>
+                </Label>
+            </HBox>
         </VBox>
     </top>
 
