@@ -10,4 +10,9 @@ module com.wizard0f0s.tdxextended {
 
     opens com.wizard0f0s.tdxextended to javafx.fxml;
     exports com.wizard0f0s.tdxextended;
+    exports TeamDynamix.Api.Apps;
+    exports TeamDynamix.Api.Auth;
+    exports TeamDynamix.Api.CustomAttributes;
+    exports TeamDynamix.Api.Users;
+
 }

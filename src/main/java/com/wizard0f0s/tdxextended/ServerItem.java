@@ -65,4 +65,17 @@ public class ServerItem {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!this.baseSite.equalsIgnoreCase(((ServerItem) obj).getBaseSite()))
+            return false;
+        if (!this.username.equalsIgnoreCase(((ServerItem) obj).getUsername()))
+            return false;
+        if (!this.password.equalsIgnoreCase(((ServerItem) obj).getPassword()))
+            return false;
+        if (this.isActive != ((ServerItem) obj).isActive)
+            return false;
+        return true;
+    }
 }

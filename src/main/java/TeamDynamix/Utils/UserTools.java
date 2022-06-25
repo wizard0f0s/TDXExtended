@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.wizard0f0s.tdxextended.ServerItem;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -29,6 +30,22 @@ public class UserTools {
     private static final int SET_USER_GROUP_BULK_MANAGEMENT_TIME_PERIOD = 120;
     private static final TDX_ApiRateLimit setUserGroupBulkManagementRateLimit = new TDX_ApiRateLimit(SET_USER_GROUP_BULK_MANAGEMENT_MAX_CALLS, SET_USER_GROUP_BULK_MANAGEMENT_TIME_PERIOD);
 
+
+    public static TDX_Authentication Login(HttpURLConnection connection, ServerItem server, String path, String method) throws IOException {
+        URL url = new URL(server.getBaseSite() + path);
+        TDX_Authentication tdxAuth = new TDX_Authentication(server.getBaseSite(), server.getUsername(), server.getPassword(), server.isAdmin());
+        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        if (connection == null) {
+            System.out.println("Connection failed and returned null");
+            return null;
+        } else {
+            String bearerToken = tdxAuth.tdxLogin(connection);
+            if (!bearerToken.equalsIgnoreCase("Invalid username or password.")) {
+                return tdxAuth;
+            }
+        }
+        return null;
+    }
 
     public static HttpURLConnection BuildConnection(TDX_Authentication tdxAuth, URL url, String requestMethod) {
         try {

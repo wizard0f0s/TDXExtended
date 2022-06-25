@@ -23,6 +23,14 @@ public class MainController {
 
     public void initialize() {
         // More code to come ...
+        if (ServerData.getInstance().getServerList().size() > 0) {
+            for (int lcv = 0; lcv < ServerData.getInstance().getServerList().size(); lcv++) {
+                if (ServerData.getInstance().getServerList().get(lcv).isActive()) {
+                    serverLabel.setText(ServerData.getInstance().getServerList().get(lcv).getBaseSite());
+                    accountLabel.setText(ServerData.getInstance().getServerList().get(lcv).getUsername());
+                }
+            }
+        }
     }
 
     @FXML
