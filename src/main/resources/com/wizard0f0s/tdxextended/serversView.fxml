@@ -4,23 +4,43 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wizard0f0s.tdxextended.ServersController">
+<AnchorPane prefHeight="200.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wizard0f0s.tdxextended.ServersController">
     <padding>
-        <Insets bottom="20.0" left="2.0" right="2.0" top="0.0" />
+        <Insets bottom="20.0" left="2.0" right="10.0" top="0.0" />
     </padding>
 
     <GridPane hgap="10" vgap="10">
-        <Label text="Server Name / Short Description:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <TextField fx:id="serverNameField" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-        <Label text="Server Address (include the API portion: eg, /SBTDWebApi):" GridPane.columnIndex="1" GridPane.rowIndex="2"  />
-        <TextField fx:id="serverAddressField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <Label text="Username or BEID:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField fx:id="usernameField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <Label text="Password or Web Services Key:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <TextField fx:id="passwordField" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label text="Server Name / Short Description:" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" />
+        <TextField fx:id="serverNameField" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+        <Label text="Server Address (include the API portion: eg, /SBTDWebApi):" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" />
+        <TextField fx:id="serverAddressField" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+        <Label text="Username or BEID:" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3" />
+        <TextField fx:id="usernameField" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+        <Label text="Password or Web Services Key:" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4" />
+        <TextField fx:id="passwordField" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="4" />
         <CheckBox fx:id="isAdminCheckBox" text="Is this a Web Service Account?" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <CheckBox fx:id="isActiveCheckBox" text="Is this the active setup?" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <columnConstraints>
+        <CheckBox fx:id="isActiveCheckBox" text="Is this the active setup?" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+        <HBox alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <Button fx:id="leftServerButton" onAction="#handleLeftServerDisplay" text="&lt;&lt;" />
+            <Label fx:id="servOfServLabel" text="# of # Servers" />
+            <Button fx:id="rightServerButton" onAction="#handleRightServerDisplay" text="&gt;&gt;" />
+        </HBox>
+        <HBox alignment="CENTER" spacing="5.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <Button fx:id="editServerButton" onAction="#handleEditServer" text="Edit Server" />
+            <Button fx:id="deleteServerButton" onAction="#handleDeleteServer" text="Delete Server" />
+            <Button fx:id="newServerButton" onAction="#handleNewServer" text="New Server" />
+            <Button fx:id="testServerButton" defaultButton="true" onAction="#handleTestServer" text="Test Server" />
+            <Button fx:id="saveServerButton" onAction="#handleSaveServer" text="Save Server" />
+
+        </HBox>
+        <Label fx:id="responseLabel" visible="false" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+        <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
          <ColumnConstraints />
          <ColumnConstraints />
          <ColumnConstraints />
@@ -32,11 +52,11 @@
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
       </rowConstraints>
+
     </GridPane>
-   <Button fx:id="testServerButton" defaultButton="true" layoutX="48.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleTestServer" text="Test Server" textAlignment="CENTER" />
-   <Button fx:id="saveServerButton" layoutX="336.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleSaveServer" text="Save Server" />
-    <Label fx:id="testServerLabel" layoutX="48.0" layoutY="249.0" text="Label" />
-   <Label fx:id="saveServerErrorLabel" visible="false" layoutX="336.0" layoutY="249.0" text="Label" />
 
 </AnchorPane>

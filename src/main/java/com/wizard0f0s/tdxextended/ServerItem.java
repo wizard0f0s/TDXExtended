@@ -74,8 +74,6 @@ public class ServerItem {
             return false;
         if (!this.password.equalsIgnoreCase(((ServerItem) obj).getPassword()))
             return false;
-        if (this.isActive != ((ServerItem) obj).isActive)
-            return false;
-        return true;
+        return this.isAdmin == ((ServerItem) obj).isAdmin;
     }
 }

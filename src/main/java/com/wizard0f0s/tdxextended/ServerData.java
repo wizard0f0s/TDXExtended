@@ -30,11 +30,34 @@ public class ServerData {
     }
 
     public void addServer(ServerItem server) {
+        if (server.isActive()) {
+            for (ServerItem serverItem : serverList) {
+                serverItem.setActive(false);
+            }
+        }
         serverList.add(server);
     }
 
     public void removeServer(ServerItem server) {
         serverList.remove(server);
+    }
+
+    public void updateServer(ServerItem server) {
+        if (serverList.contains(server)) {
+            int index = serverList.indexOf(server);
+            System.out.println("found " + serverList.get(index).getName());
+            serverList.get(index).setName(server.getName());
+            serverList.get(index).setBaseSite(server.getBaseSite());
+            serverList.get(index).setUsername(server.getUsername());
+            serverList.get(index).setPassword(server.getPassword());
+            serverList.get(index).setAdmin(server.isAdmin());
+            if (server.isActive()) {
+                for (ServerItem serverItem : serverList) {
+                    serverItem.setActive(false);
+                }
+            }
+            serverList.get(index).setActive(server.isActive());
+        }
     }
 
     public void loadServers() throws IOException {
