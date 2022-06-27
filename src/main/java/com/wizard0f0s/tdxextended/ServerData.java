@@ -10,9 +10,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.List;
 
 public class ServerData {
 
+    private List test;
     private static ServerData instance = new ServerData();
     private ObservableList<ServerItem> serverList;
     private String filename = "serverList.txt";

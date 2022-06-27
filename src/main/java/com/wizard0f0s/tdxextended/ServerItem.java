@@ -9,6 +9,10 @@ public class ServerItem {
     private boolean isAdmin;
     private boolean isActive;
 
+    public ServerItem() {
+        this("", "", "", "", false, false);
+    }
+
     public ServerItem(String name, String baseSite, String username, String password, boolean isAdmin, boolean isActive) {
         this.name = name;
         this.baseSite = baseSite;
@@ -75,5 +79,19 @@ public class ServerItem {
         if (!this.password.equalsIgnoreCase(((ServerItem) obj).getPassword()))
             return false;
         return this.isAdmin == ((ServerItem) obj).isAdmin;
+    }
+
+    public boolean copy(ServerItem item) {
+        if (item == null) {
+            return false;
+        }
+        this.name = item.getName();
+        this.baseSite = item.getBaseSite();
+        this.username = item.getUsername();
+        this.password = item.getPassword();
+        this.isAdmin = item.isAdmin();
+        this.isActive = item.isActive();
+
+        return true;
     }
 }

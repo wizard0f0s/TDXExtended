@@ -20,16 +20,28 @@ public class MainController {
     @FXML
     private BorderPane mainBorderPane;
 
+    private ServerItem selectedServer = new ServerItem();
+
 
     public void initialize() {
         // More code to come ...
         if (ServerData.getInstance().getServerList().size() > 0) {
+            boolean activeServer = false;
             for (int lcv = 0; lcv < ServerData.getInstance().getServerList().size(); lcv++) {
                 if (ServerData.getInstance().getServerList().get(lcv).isActive()) {
-                    serverLabel.setText(ServerData.getInstance().getServerList().get(lcv).getBaseSite());
-                    accountLabel.setText(ServerData.getInstance().getServerList().get(lcv).getUsername());
+                    selectedServer.copy(ServerData.getInstance().getServerList().get(lcv));
+                    serverLabel.setText(selectedServer.getBaseSite());
+                    accountLabel.setText(selectedServer.getUsername());
+                    activeServer = true;
                 }
             }
+            if (!activeServer) {
+                serverLabel.setText("No server selected!");
+                accountLabel.setText("");
+            }
+        } else {
+            serverLabel.setText("No server selected!");
+            accountLabel.setText("");
         }
     }
 
@@ -52,11 +64,29 @@ public class MainController {
         }
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+//        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             ServersController controller = fxmlLoader.getController();
+            if (ServerData.getInstance().getServerList().size() > 0) {
+                boolean activeServer = false;
+                for (ServerItem server : ServerData.getInstance().getServerList()) {
+                    if (server.isActive()) {
+                        selectedServer.copy(server);
+                        activeServer = true;
+                        serverLabel.setText(selectedServer.getBaseSite());
+                        accountLabel.setText(selectedServer.getUsername());
+                    }
+                }
+                if (!activeServer) {
+                    serverLabel.setText("No server selected!");
+                    accountLabel.setText("");
+                }
+            } else {
+                serverLabel.setText("No server selected!");
+                accountLabel.setText("");
+            }
 //            ServerItem newItem = controller.processResults();
 //            todoListView.getSelectionModel().select(newItem);
         }
@@ -64,8 +94,15 @@ public class MainController {
     }
 
     @FXML
-    public void bulkAssignUsersToGroups() {
+    public void bulkAssignUserGroups() {
         //Bulk Assign Users to Groups here
+        // 1) Login with the set server account
+        // 2) Display and build the User Query options
+        // 3) Get and display the list of users
+        // 4) Display and build the Group Search query
+        // 5) Get and display the list of groups
+        // 6) Display and build the Bulk Management Options
+        // 7) Run the User Group Bulk Management Operation
     }
 
     @FXML

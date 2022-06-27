@@ -19,7 +19,7 @@
                         <MenuItem text="Select Server Connection" onAction="#showNewServerDialog">
                         </MenuItem>
                         <SeparatorMenuItem/>
-                        <MenuItem text="Bulk Assign Users to Groups" onAction="#bulkAssignUsersToGroups"/>
+                        <MenuItem text="Bulk Assign Users to Groups" onAction="#bulkAssignUserGroups"/>
                         <SeparatorMenuItem/>
                         <MenuItem text="Exit" onAction="#handleExit"/>
                     </items>
