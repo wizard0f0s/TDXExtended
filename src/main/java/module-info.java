@@ -14,5 +14,7 @@ module com.wizard0f0s.tdxextended {
     exports TeamDynamix.Api.Auth;
     exports TeamDynamix.Api.CustomAttributes;
     exports TeamDynamix.Api.Users;
+    exports TeamDynamix.Utils;
+    opens TeamDynamix.Utils to javafx.fxml;
 
 }

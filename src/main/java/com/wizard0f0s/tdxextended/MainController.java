@@ -1,14 +1,20 @@
 package com.wizard0f0s.tdxextended;
 
+import TeamDynamix.Utils.TDXProcess;
+import TeamDynamix.Utils.TDXTask;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class MainController {
@@ -19,8 +25,19 @@ public class MainController {
     private Label accountLabel;
     @FXML
     private BorderPane mainBorderPane;
-
+    @FXML
+    private ListView<TDXProcess> processListView;
     private ServerItem selectedServer = new ServerItem();
+    @FXML
+    private ListView<TDXTask> taskListView;
+    @FXML
+    private TextArea taskDescriptionTextArea;
+    @FXML
+    private TextArea taskResultsTextArea;
+    @FXML
+    private Button executeButton;
+    @FXML
+    private Label taskStatusLabel;
 
 
     public void initialize() {
@@ -43,6 +60,19 @@ public class MainController {
             serverLabel.setText("No server selected!");
             accountLabel.setText("");
         }
+
+        //implement the listener for the second taskview
+
+        processListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TDXProcess>() {
+            @Override
+            public void changed(ObservableValue<? extends TDXProcess> observableValue, TDXProcess tdxProcess, TDXProcess t1) {
+                if (t1 != null) {
+                    TDXProcess process = processListView.getSelectionModel().getSelectedItem();
+                    // implement loading the second taskview
+                }
+            }
+        });
+
     }
 
     @FXML
@@ -90,6 +120,11 @@ public class MainController {
 //            ServerItem newItem = controller.processResults();
 //            todoListView.getSelectionModel().select(newItem);
         }
+
+    }
+
+    @FXML
+    public void handleKeyPress(KeyEvent keyEvent) {
 
     }
 

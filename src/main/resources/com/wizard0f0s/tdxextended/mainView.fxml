@@ -28,19 +28,19 @@
             <HBox>
                 <Label fx:id="accountLabel" text="Active Account">
                     <font>
-                        <Font name="Times New Roman bold" size="20"/>
+                        <Font name="Times New Roman bold" size="18"/>
                     </font>
                 </Label>
                 <Separator/>
                 <Label text="\@">
                     <font>
-                        <Font name="Times New Roman italics" size="20"/>
+                        <Font name="Times New Roman italics" size="18"/>
                     </font>
                 </Label>
                 <Separator/>
                 <Label fx:id="serverLabel" text="Active Server">
                     <font>
-                        <Font name="Times New Roman bold" size="20"/>
+                        <Font name="Times New Roman bold" size="18"/>
                     </font>
                 </Label>
             </HBox>
@@ -48,14 +48,41 @@
     </top>
 
     <right>
-        <GridPane>
-        </GridPane>
 
     </right>
     <left>
+        <ListView fx:id="processListView">
+
+        </ListView>
 
     </left>
     <center>
+        <BorderPane>
+            <left>
+                <ListView fx:id="taskListView">
+
+                </ListView>
+            </left>
+            <center>
+                <VBox style="-fx-background-color: white">
+                    <TextArea fx:id="taskDescriptionTextArea" VBox.vgrow="ALWAYS" wrapText="true"/>
+                    <TextArea fx:id="taskResultsTextArea" VBox.vgrow="ALWAYS" />
+                    <HBox>
+                        <Button fx:id="executeButton" text="Execute"/>
+                        <Label text="Status: ">
+                            <font>
+                                <Font name="Times New Roman bold" size="14"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="taskStatusLabel" text="">
+                            <font>
+                                <Font name="Times New Roman bold" size="14"/>
+                            </font>
+                        </Label>
+                    </HBox>
+                </VBox>
+            </center>
+        </BorderPane>
 
     </center>
     <bottom>
