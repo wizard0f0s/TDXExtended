@@ -65,16 +65,22 @@
             </left>
             <center>
                 <VBox style="-fx-background-color: white">
-                    <TextArea fx:id="taskDescriptionTextArea" VBox.vgrow="ALWAYS" wrapText="true"/>
+                    <HBox>
+                        <Button fx:id="taskOptionsButton" text="Options" onAction="#handleDisplayOptionsButtonPress"/>
+                    </HBox>
+                    <TextArea fx:id="taskDescriptionTextArea" wrapText="true"/>
                     <TextArea fx:id="taskResultsTextArea" VBox.vgrow="ALWAYS" />
                     <HBox>
-                        <Button fx:id="executeButton" text="Execute"/>
-                        <Label text="Status: ">
+<!--                        <padding>-->
+<!--                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>-->
+<!--                        </padding>-->
+                        <Button fx:id="executeButton" text="Execute" onAction="#handleExecuteButtonPress"/>
+                        <Label text="Status: " style="-fx-padding: 5 5 2 10;" >
                             <font>
                                 <Font name="Times New Roman bold" size="14"/>
                             </font>
                         </Label>
-                        <Label fx:id="taskStatusLabel" text="">
+                        <Label fx:id="taskStatusLabel" text="" style="-fx-padding: 5 5 2 10;">
                             <font>
                                 <Font name="Times New Roman bold" size="14"/>
                             </font>

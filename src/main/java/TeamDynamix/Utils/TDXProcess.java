@@ -1,5 +1,6 @@
 package TeamDynamix.Utils;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
@@ -15,6 +16,7 @@ public class TDXProcess {
     public TDXProcess(String name, String description) {
         this.name = name;
         this.description = description;
+        taskList = FXCollections.observableArrayList();
     }
 
 
