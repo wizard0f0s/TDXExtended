@@ -24,9 +24,9 @@ public class oldMain {
 //        System.out.println("The TDX Test site is: https://services.tctc.edu/SBTDWebApi/");
         //Scanner scanner = new Scanner(System.in);
         //Sandbox
-//        String site = "https://services.tctc.edu/SBTDWebApi";
+        String site = "https://services.tctc.edu/SBTDWebApi/";
         //Production
-        String site = "https://services.tctc.edu/TDWebApi/";
+//        String site = "https://services.tctc.edu/TDWebApi/";
 
 //        System.out.println("Enter the site to connect to: ");
         //site = scanner.nextLine();
@@ -40,18 +40,18 @@ public class oldMain {
 
             //login with a service account
             //Sandbox
-//            TDX_Authentication tdxAuth = login(connection, site, "api/auth/loginadmin", "POST", "FFAB90E6-5500-4E59-8E5F-62EBAEB2BA85", "774D7EF1-DA0C-4BC3-B269-0681092B8BB1", true);
+            login(connection, site, "api/auth/loginadmin", "POST", "FFAB90E6-5500-4E59-8E5F-62EBAEB2BA85", "774D7EF1-DA0C-4BC3-B269-0681092B8BB1", true);
             //Production
-            TDX_Authentication tdxAuth = login(connection, site, "api/auth/loginadmin", "POST", "FFAB90E6-5500-4E59-8E5F-62EBAEB2BA85", "03DCF2CE-1682-4C24-8C38-59DD35708B83", true);
-            if (tdxAuth != null) {
-                testGetCurrentUser(tdxAuth, connection, site, "api/auth/getuser", "GET");
+//            login(connection, site, "api/auth/loginadmin", "POST", "FFAB90E6-5500-4E59-8E5F-62EBAEB2BA85", "03DCF2CE-1682-4C24-8C38-59DD35708B83", true);
+            if (TDX_Authentication.getInstance() != null) {
+                testGetCurrentUser(connection, site, "api/auth/getuser", "GET");
             } else {
                 System.out.println("Failed login attempt");
             }
 
             //Query list of users
             String queryString = QueryStrings.BuildUserListQuery(true, true, true, 1);
-            List<UserListing> tdxUserList = testGetUserList(tdxAuth, connection, site, "api/people/userlist?" + queryString, "GET");
+            List<UserListing> tdxUserList = testGetUserList(connection, site, "api/people/userlist?" + queryString, "GET");
 
             List<String> userGuids = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class oldMain {
             groupSearchQuery.setHasSystemAppName("");
             groupSearchQuery.setAssociatedAppId(0);
 
-            List<Group> tdxGroupList = testGetGroupList(tdxAuth, connection, site, "api/groups/search", "POST", groupSearchQuery);
+            List<Group> tdxGroupList = testGetGroupList(connection, site, "api/groups/search", "POST", groupSearchQuery);
 
             List<Integer> groupIDs = new ArrayList<>();
             Integer employeesGroupID = -1;
@@ -90,7 +90,7 @@ public class oldMain {
             userGroupsBulkManagementParams.setGroupIDs(groupIDs);
             userGroupsBulkManagementParams.setRemoveOtherGroups(false);
 
-            testManageGroups(tdxAuth, connection, site, "api/people/bulk/managegroups", "POST", userGroupsBulkManagementParams);
+            testManageGroups(connection, site, "api/people/bulk/managegroups", "POST", userGroupsBulkManagementParams);
 
 //            if (login(connection, site, "api/auth/login", "POST", "jtest@tctc.edu", "#Reset123#", false)) {
 //                testGetCurrentUser(connection, site, "api/auth/getuser", "GET");
@@ -111,29 +111,27 @@ public class oldMain {
         //scanner.close();
     }
 
-    private static TDX_Authentication login(HttpURLConnection connection, String site, String path, String method, String user, String password, boolean isAdmin) throws IOException {
+    private static void login(HttpURLConnection connection, String site, String path, String method, String user, String password, boolean isAdmin) throws IOException {
         URL url = new URL(site + path);
-        TDX_Authentication tdxAuth = new TDX_Authentication(site, user, password, isAdmin);
-        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        TDX_Authentication.getInstance().setupConnection(site, user, password, isAdmin);
+        connection = UserTools.BuildConnection(url, method);
         if (connection == null) {
             System.out.println("Connection failed and returned null");
-            return null;
+            return;
         } else {
-            bearerToken = tdxAuth.tdxLogin(connection);
+            bearerToken = TDX_Authentication.getInstance().tdxLogin(connection);
             if (!bearerToken.equalsIgnoreCase("Invalid username or password.")) {
-                return tdxAuth;
             }
         }
-        return null;
     }
 
-    private static void testGetCurrentUser(TDX_Authentication tdxAuth, HttpURLConnection connection, String site, String path, String method) throws IOException {
+    private static void testGetCurrentUser(HttpURLConnection connection, String site, String path, String method) throws IOException {
         URL url = new URL(site + path);
-        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        connection = UserTools.BuildConnection(url, method);
         TeamDynamix.Api.Users.User currentUser;
 
         try {
-            currentUser = UserTools.getCurrentUser(tdxAuth, connection);
+            currentUser = UserTools.getCurrentUser(connection);
             if (currentUser != null) {
 //                System.out.println("Current User is: " + currentUser.getFullName());
 //                System.out.println("Current username is: " + currentUser.getUserName());
@@ -153,13 +151,13 @@ public class oldMain {
     }
 
 
-    private static List<UserListing> testGetUserList(TDX_Authentication tdxAuth, HttpURLConnection connection, String site, String path, String method) throws IOException {
+    private static List<UserListing> testGetUserList(HttpURLConnection connection, String site, String path, String method) throws IOException {
         URL url = new URL(site + path);
-        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        connection = UserTools.BuildConnection(url, method);
         List<UserListing> userList = new ArrayList<UserListing>();
 
         try {
-            userList = UserTools.getUserList(tdxAuth, connection);
+            userList = UserTools.getUserList(connection);
             if (userList != null) {
                 System.out.println("Found " + userList.size() + " users!");
 //                System.out.println("First User is: " + userList.get(0).getFullName());
@@ -180,13 +178,13 @@ public class oldMain {
         return null;
     }
 
-    private static List<Group> testGetGroupList(TDX_Authentication tdxAuth, HttpURLConnection connection, String site, String path, String method, GroupSearch query) throws IOException {
+    private static List<Group> testGetGroupList(HttpURLConnection connection, String site, String path, String method, GroupSearch query) throws IOException {
         URL url = new URL(site + path);
-        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        connection = UserTools.BuildConnection(url, method);
         List<Group> groups = new ArrayList<>();
 
         try {
-            groups = UserTools.getGroupList(tdxAuth, connection, query);
+            groups = UserTools.getGroupList(connection, query);
             if (groups != null) {
                 System.out.println("Found " + groups.size() + " groups!");
                 return groups;
@@ -205,13 +203,13 @@ public class oldMain {
         return null;
     }
 
-    private static void testManageGroups(TDX_Authentication tdxAuth, HttpURLConnection connection, String site, String path, String method, UserGroupsBulkManagement bulkManageGroupParams) throws IOException {
+    private static void testManageGroups(HttpURLConnection connection, String site, String path, String method, UserGroupsBulkManagement bulkManageGroupParams) throws IOException {
         URL url = new URL(site + path);
-        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        connection = UserTools.BuildConnection(url, method);
         List<Group> groups = new ArrayList<>();
 
         try {
-            UserTools.setBulkGroups(tdxAuth, connection, bulkManageGroupParams);
+            UserTools.setBulkGroups(connection, bulkManageGroupParams);
             return;
         } catch (JsonProcessingException jpe) {
             System.out.println("testManageGroups: JsonProcessing Exception: \n");

@@ -6,9 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.wizard0f0s.tdxextended.UserQueryController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="200.0" prefWidth="300.0">
+    <Label text="Are these active users?" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <ComboBox fx:id="isActiveComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Label text="Are these confidential users?" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <ComboBox fx:id="isConfidentialComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="Are these employees?" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <ComboBox fx:id="isEmployeeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label text="Are these employees?" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <ComboBox fx:id="employeeTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-</AnchorPane>
+</GridPane>

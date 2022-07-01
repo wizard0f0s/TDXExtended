@@ -16,19 +16,19 @@ public class TDX_Authentication {
     private String tdxBeid;
     private String tdxWebServicesKey;
     private boolean isAdmin;
-    private HttpClient httpClient;
-    private final TDX_ApiRateLimit loginAdminRateLimit;
     private static final int LOGIN_ADMIN_MAX_CALLS = 60;
     private static final int LOGIN_ADMIN_TIME_PERIOD = 60;
+    private final TDX_ApiRateLimit loginAdminRateLimit = new TDX_ApiRateLimit(LOGIN_ADMIN_MAX_CALLS, LOGIN_ADMIN_TIME_PERIOD);
     private TeamDynamix.Api.Auth.AdminTokenParameters adminAuth;
     private TeamDynamix.Api.Auth.LoginParameters userAuth;
+    private static TDX_Authentication instance = new TDX_Authentication();
 
-    private TDX_Authentication(String site) {
-        this(site, "", "", false);
+
+    private TDX_Authentication() {
 
     }
 
-    public TDX_Authentication(String website, String tdxBeid, String tdxWebServicesKey, boolean isAdmin) {
+    public void setupConnection(String website, String tdxBeid, String tdxWebServicesKey, boolean isAdmin) {
         this.website = website;
         this.isAdmin = isAdmin;
         this.bearerToken = "";
@@ -44,7 +44,6 @@ public class TDX_Authentication {
             this.userAuth.setUsername(tdxBeid);
             this.userAuth.setPassword(tdxWebServicesKey);
         }
-        loginAdminRateLimit = new TDX_ApiRateLimit(LOGIN_ADMIN_MAX_CALLS, LOGIN_ADMIN_TIME_PERIOD);
     }
 
     public String tdxLogin(HttpURLConnection connection) {
@@ -62,6 +61,8 @@ public class TDX_Authentication {
                 jsonString = mapper.writeValueAsString(this.userAuth);
             }
             JsonUtils.jsonPost(connection, jsonString);
+            System.out.println(connection.getResponseCode());
+            System.out.println(connection.getResponseMessage());
             this.bearerToken = JsonUtils.jsonGet(connection);
         } catch (MalformedURLException mue) {
             System.out.println("URL Error:\n" + mue);
@@ -75,5 +76,9 @@ public class TDX_Authentication {
 
     public String getBearerToken() {
         return bearerToken;
+    }
+
+    public static TDX_Authentication getInstance() {
+        return instance;
     }
 }

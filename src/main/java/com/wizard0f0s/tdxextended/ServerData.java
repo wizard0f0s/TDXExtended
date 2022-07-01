@@ -14,7 +14,6 @@ import java.util.List;
 
 public class ServerData {
 
-    private List test;
     private static ServerData instance = new ServerData();
     private ObservableList<ServerItem> serverList;
     private String filename = "serverList.txt";

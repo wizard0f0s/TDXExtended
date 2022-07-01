@@ -31,30 +31,30 @@ public class UserTools {
     private static final TDX_ApiRateLimit setUserGroupBulkManagementRateLimit = new TDX_ApiRateLimit(SET_USER_GROUP_BULK_MANAGEMENT_MAX_CALLS, SET_USER_GROUP_BULK_MANAGEMENT_TIME_PERIOD);
 
 
-    public static TDX_Authentication Login(HttpURLConnection connection, ServerItem server, String path, String method) throws IOException {
+    public static boolean Login(HttpURLConnection connection, ServerItem server, String path, String method) throws IOException {
         URL url = new URL(server.getBaseSite() + path);
-        TDX_Authentication tdxAuth = new TDX_Authentication(server.getBaseSite(), server.getUsername(), server.getPassword(), server.isAdmin());
-        connection = UserTools.BuildConnection(tdxAuth, url, method);
+        TDX_Authentication.getInstance().setupConnection(server.getBaseSite(), server.getUsername(), server.getPassword(), server.isAdmin());
+        connection = UserTools.BuildConnection(url, method);
         if (connection == null) {
             System.out.println("Connection failed and returned null");
-            return null;
+            return false;
         } else {
-            String bearerToken = tdxAuth.tdxLogin(connection);
+            String bearerToken = TDX_Authentication.getInstance().tdxLogin(connection);
             if (!bearerToken.equalsIgnoreCase("Invalid username or password.")) {
-                return tdxAuth;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
-    public static HttpURLConnection BuildConnection(TDX_Authentication tdxAuth, URL url, String requestMethod) {
+    public static HttpURLConnection BuildConnection(URL url, String requestMethod) {
         try {
             //Setup connection
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(requestMethod);
             connection.setRequestProperty("Content-Type", "application/json");
-            if (!tdxAuth.getBearerToken().isEmpty()) {
-                connection.setRequestProperty("Authorization", "Bearer " + tdxAuth.getBearerToken());
+            if (!TDX_Authentication.getInstance().getBearerToken().isEmpty()) {
+                connection.setRequestProperty("Authorization", "Bearer " + TDX_Authentication.getInstance().getBearerToken());
             }
             connection.setRequestProperty("Accept", "application/json");
             connection.setDoOutput(true);
@@ -71,7 +71,7 @@ public class UserTools {
         return null;
     }
 
-    public static TeamDynamix.Api.Users.User getCurrentUser(TDX_Authentication tdxAuth, HttpURLConnection connection) throws JsonProcessingException {
+    public static TeamDynamix.Api.Users.User getCurrentUser(HttpURLConnection connection) throws JsonProcessingException {
         boolean rateLimited = true;
         String jsonString = "";
 
@@ -85,7 +85,7 @@ public class UserTools {
                 if ((connection.getResponseCode() == 429) || (connection.getResponseCode() == 401)) {
                     rateLimited = true;
                     getCurrentUserRateLimit.forceCheck();
-                    connection = BuildConnection(tdxAuth, connection.getURL(), connection.getRequestMethod());
+                    connection = BuildConnection(connection.getURL(), connection.getRequestMethod());
                 } else {
                     rateLimited = false;
                 }
@@ -104,7 +104,7 @@ public class UserTools {
         return null;
     }
 
-    public static List<UserListing> getUserList(TDX_Authentication tdxAuth, HttpURLConnection connection) throws JsonProcessingException {
+    public static List<UserListing> getUserList(HttpURLConnection connection) throws JsonProcessingException {
         boolean rateLimited = true;
         String jsonString = "";
 
@@ -119,7 +119,7 @@ public class UserTools {
                 if ((connection.getResponseCode() == 429) || (connection.getResponseCode() == 401)) {
                     rateLimited = true;
                     getUserListRateLimit.forceCheck();
-                    connection = BuildConnection(tdxAuth, connection.getURL(), connection.getRequestMethod());
+                    connection = BuildConnection(connection.getURL(), connection.getRequestMethod());
                 } else {
                     rateLimited = false;
                 }
@@ -136,7 +136,7 @@ public class UserTools {
         return null;
     }
 
-    public static List<Group> getGroupList(TDX_Authentication tdxAuth, HttpURLConnection connection, GroupSearch query) throws JsonProcessingException {
+    public static List<Group> getGroupList(HttpURLConnection connection, GroupSearch query) throws JsonProcessingException {
         boolean rateLimited = true;
         String jsonString = "";
 
@@ -153,7 +153,7 @@ public class UserTools {
                 if ((connection.getResponseCode() == 429) || (connection.getResponseCode() == 401)) {
                     rateLimited = true;
                     getGroupListRateLimit.forceCheck();
-                    connection = BuildConnection(tdxAuth, connection.getURL(), connection.getRequestMethod());
+                    connection = BuildConnection(connection.getURL(), connection.getRequestMethod());
                 } else {
                     rateLimited = false;
                 }
@@ -170,7 +170,7 @@ public class UserTools {
         return null;
     }
 
-    public static void setBulkGroups(TDX_Authentication tdxAuth, HttpURLConnection connection, UserGroupsBulkManagement bulkManageGroupParams) throws JsonProcessingException {
+    public static void setBulkGroups(HttpURLConnection connection, UserGroupsBulkManagement bulkManageGroupParams) throws JsonProcessingException {
         boolean rateLimited = true;
         String jsonString = "";
 
@@ -187,7 +187,7 @@ public class UserTools {
                 if ((connection.getResponseCode() == 429) || (connection.getResponseCode() == 401)) {
                     rateLimited = true;
                     getGroupListRateLimit.forceCheck();
-                    connection = BuildConnection(tdxAuth, connection.getURL(), connection.getRequestMethod());
+                    connection = BuildConnection(connection.getURL(), connection.getRequestMethod());
                 } else {
                     rateLimited = false;
                 }

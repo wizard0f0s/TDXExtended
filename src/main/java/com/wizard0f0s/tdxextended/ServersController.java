@@ -49,7 +49,6 @@ public class ServersController {
     private Label servOfServLabel;
     private ServerItem currentServer;
     private ServerItem tempServer;
-    private TDX_Authentication tdxAuth;
 
     public void initialize() {
         System.out.println("Server list has " + ServerData.getInstance().getServerList().size() + " objects");
@@ -166,13 +165,13 @@ public class ServersController {
                     } else {
                         path = "api/auth/login";
                     }
-                    tdxAuth = UserTools.Login(connection, currentServer, path, "POST");
-                    System.out.println(tdxAuth.getBearerToken());
+                    UserTools.Login(connection, currentServer, path, "POST");
+                    System.out.println(TDX_Authentication.getInstance().getBearerToken());
 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            if (!tdxAuth.getBearerToken().isEmpty()) {
+                            if (!TDX_Authentication.getInstance().getBearerToken().isEmpty()) {
                                 responseLabel.setText("SERVER CONNECTION SUCCESSFUL!");
                             } else {
                                 responseLabel.setText("SERVER CONNECTION FAILED!");
