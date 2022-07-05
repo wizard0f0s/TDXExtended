@@ -51,46 +51,53 @@ public class oldMain {
 
             //Query list of users
             String queryString = QueryStrings.BuildUserListQuery(true, true, true, 1);
+            queryString = "isActive=" + "false" + "&isConfidential=" + true + "&isEmployee=" + true + "&userType=" + 1;
             List<UserListing> tdxUserList = testGetUserList(connection, site, "api/people/userlist?" + queryString, "GET");
 
             List<String> userGuids = new ArrayList<>();
 
+            int count = 0;
             for (UserListing user : tdxUserList) {
+                System.out.println("user = " + user.getFullName());
                 userGuids.add(user.getUid());
+                count++;
             }
 
+            System.out.println("Count: " + count);
 //            for (String guid : userGuids) {
 //                System.out.println(guid);
 //            }
 
-            GroupSearch groupSearchQuery = new GroupSearch();
-            groupSearchQuery.setActive(true);
-            groupSearchQuery.setNameLike("");
-            groupSearchQuery.setHasAppId(0);
-            groupSearchQuery.setHasSystemAppName("");
-            groupSearchQuery.setAssociatedAppId(0);
-
-            List<Group> tdxGroupList = testGetGroupList(connection, site, "api/groups/search", "POST", groupSearchQuery);
-
-            List<Integer> groupIDs = new ArrayList<>();
-            Integer employeesGroupID = -1;
-
-            for (Group group : tdxGroupList) {
-                System.out.println("\t" + group.getId() + ": " + group.getName());
-                if (group.getName().equalsIgnoreCase("Employees")) {
-                    employeesGroupID = group.getId();
-                    groupIDs.add(group.getId());
-                }
-            }
-
-            System.out.println("\nEmployees group ID = " + employeesGroupID);
-
-            UserGroupsBulkManagement userGroupsBulkManagementParams = new UserGroupsBulkManagement();
-            userGroupsBulkManagementParams.setUserUIDs(userGuids);
-            userGroupsBulkManagementParams.setGroupIDs(groupIDs);
-            userGroupsBulkManagementParams.setRemoveOtherGroups(false);
-
-            testManageGroups(connection, site, "api/people/bulk/managegroups", "POST", userGroupsBulkManagementParams);
+//            //commenting for testing the user query strings
+//            GroupSearch groupSearchQuery = new GroupSearch();
+//            groupSearchQuery.setActive(true);
+//            groupSearchQuery.setNameLike("");
+//            groupSearchQuery.setHasAppId(0);
+//            groupSearchQuery.setHasSystemAppName("");
+//            groupSearchQuery.setAssociatedAppId(0);
+//
+//            List<Group> tdxGroupList = testGetGroupList(connection, site, "api/groups/search", "POST", groupSearchQuery);
+//
+//            List<Integer> groupIDs = new ArrayList<>();
+//            Integer employeesGroupID = -1;
+//
+//            for (Group group : tdxGroupList) {
+//                System.out.println("\t" + group.getId() + ": " + group.getName());
+//                if (group.getName().equalsIgnoreCase("Employees")) {
+//                    employeesGroupID = group.getId();
+//                    groupIDs.add(group.getId());
+//                }
+//            }
+//
+//            System.out.println("\nEmployees group ID = " + employeesGroupID);
+//
+//            UserGroupsBulkManagement userGroupsBulkManagementParams = new UserGroupsBulkManagement();
+//            userGroupsBulkManagementParams.setUserUIDs(userGuids);
+//            userGroupsBulkManagementParams.setGroupIDs(groupIDs);
+//            userGroupsBulkManagementParams.setRemoveOtherGroups(false);
+//
+//            testManageGroups(connection, site, "api/people/bulk/managegroups", "POST", userGroupsBulkManagementParams);
+            //comment block for testing ends here
 
 //            if (login(connection, site, "api/auth/login", "POST", "jtest@tctc.edu", "#Reset123#", false)) {
 //                testGetCurrentUser(connection, site, "api/auth/getuser", "GET");

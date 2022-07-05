@@ -1,5 +1,6 @@
 package TeamDynamix.Utils;
 
+import TeamDynamix.Utils.Processes.UserGroupBulkProcess;
 import TeamDynamix.Utils.UserTasks.GetUserListTask;
 import TeamDynamix.Utils.UserTasks.UserQueryBuildTask;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ public class TDXProcessData {
     private static TDXProcessData instance = new TDXProcessData();
     private static String filename = "ProcessData.dat";
     private ObservableList<TDXProcess> processList;
+    private TDXProcess currentProcess;
 
     public static TDXProcessData getInstance() {
         return instance;
@@ -29,6 +31,14 @@ public class TDXProcessData {
         processList.add(process);
     }
 
+    public TDXProcess getCurrentProcess() {
+        return currentProcess;
+    }
+
+    public void setCurrentProcess(TDXProcess currentProcess) {
+        this.currentProcess = currentProcess;
+    }
+
     public void loadProcesses() throws IOException {
 
         processList = FXCollections.observableArrayList();
@@ -38,7 +48,7 @@ public class TDXProcessData {
                 "These are bulk search parameters that provide identifying groupings of users.");
         GetUserListTask task2 = new GetUserListTask(2, "Get List of Users", "Get User List",
                 "Using the User Query tools, search for a list of users matching these parameters.");
-        TDXProcess userGroupBulkProcess = new TDXProcess("User Group Bulk Management",
+        TDXProcess userGroupBulkProcess = new UserGroupBulkProcess("User Group Bulk Management",
                 "These tasks provide bulk management tools for managing groupings of users and groups within TeamDynamix.");
         userGroupBulkProcess.addTask(task1);
         userGroupBulkProcess.addTask(task2);

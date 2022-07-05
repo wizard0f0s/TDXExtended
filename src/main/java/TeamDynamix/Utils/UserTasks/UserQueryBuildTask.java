@@ -1,5 +1,7 @@
 package TeamDynamix.Utils.UserTasks;
 
+import TeamDynamix.Utils.QueryStrings;
+import TeamDynamix.Utils.TDXProcessData;
 import TeamDynamix.Utils.TDXTask;
 import com.wizard0f0s.tdxextended.ServerData;
 import com.wizard0f0s.tdxextended.ServerItem;
@@ -89,7 +91,6 @@ public class UserQueryBuildTask implements TDXTask {
 
     @Override
     public void displayOptions(BorderPane mainBorderPane) {
-        System.out.println("UserQueryBuildTask: Can we display from here?");
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
@@ -111,6 +112,72 @@ public class UserQueryBuildTask implements TDXTask {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             UserQueryController controller = fxmlLoader.getController();
+            String isActive = "";
+            String isConfidential = "";
+            String isEmployee = "";
+            int userType = 0;
+
+            System.out.println("isActiveComboBox = " + controller.isActiveComboBox.getValue());
+            switch (controller.isActiveComboBox.getValue().toString()) {
+                case "Active Users" :
+                    isActive = "true";
+                    break;
+                case "NOT Active Users" :
+                    isActive = "false";
+                    break;
+                default :
+                    break;
+            }
+
+            switch (controller.isConfidentialComboBox.getValue().toString()) {
+                case "Confidential Users" :
+                    isConfidential = "true";
+                    break;
+                case "NOT Confidential Users" :
+                    isConfidential = "false";
+                    break;
+                default :
+                    break;
+            }
+
+            switch (controller.isEmployeeComboBox.getValue().toString()) {
+                case "Employees" :
+                    isEmployee = "true";
+                    break;
+                case "NON-Employees" :
+                    isEmployee = "false";
+                    break;
+                default :
+                    break;
+            }
+
+            switch (controller.employeeTypeComboBox.getValue().toString()) {
+                case "None / All User Types" :
+                    userType = 0;
+                    break;
+                case "Standard User" :
+                    userType = 1;
+                    break;
+                case "Customer" :
+                    userType = 2;
+                    break;
+                case "Resource Placeholder" :
+                    userType = 8;
+                    break;
+                case "Service Account" :
+                    userType = 9;
+                    break;
+                default :
+                    break;
+            }
+
+            String userQuery = QueryStrings.BuildUserListQuery(isActive, isConfidential, isEmployee, userType);
+            System.out.println(userQuery);
+
+            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("UserQueryBuild", userQuery);
+            executed = true;
+            status = true;
+
         }
 
     }

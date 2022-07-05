@@ -43,6 +43,15 @@ public class ServerData {
         serverList.remove(server);
     }
 
+    public ServerItem getActiveServer() {
+        for (ServerItem server : serverList) {
+            if (server.isActive()) {
+                return server;
+            }
+        }
+        return null;
+    }
+
     public void updateServer(ServerItem server) {
         if (serverList.contains(server)) {
             int index = serverList.indexOf(server);

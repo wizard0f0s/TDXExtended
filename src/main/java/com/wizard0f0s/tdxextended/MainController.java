@@ -74,6 +74,7 @@ public class MainController {
             public void changed(ObservableValue<? extends TDXProcess> observableValue, TDXProcess tdxProcess, TDXProcess t1) {
                 if (t1 != null) {
                     TDXProcess process = processListView.getSelectionModel().getSelectedItem();
+                    TDXProcessData.getInstance().setCurrentProcess(process);
                     // implement loading the second taskview
                     SortedList<TDXTask> taskSortedList = new SortedList<>(process.getTasks(),
                             new Comparator<TDXTask>() {
@@ -95,10 +96,21 @@ public class MainController {
             public void changed(ObservableValue<? extends TDXTask> observableValue, TDXTask tdxTask, TDXTask t1) {
                 if (t1 != null) {
                     TDXTask task = taskListView.getSelectionModel().getSelectedItem();
+                    TDXProcess process = processListView.getSelectionModel().getSelectedItem();
+                    process.setCurrentTask(task);
+                    int currentIndex = process.getTasks().indexOf(task);
+                    if (currentIndex == 0) {
+                        taskOptionsButton.setDisable(false);
+                    } else if ((process.getTasks().get(currentIndex-1).getStatus().equalsIgnoreCase("success"))) {
+                        taskOptionsButton.setDisable(false);
+
+                    } else {
+                        taskOptionsButton.setDisable(true);
+                    }
+
                     taskDescriptionTextArea.setText(task.getDescription());
                     taskResultsTextArea.setText(task.getStatusDescription());
                     taskStatusLabel.setText(task.getStatus());
-                    taskOptionsButton.setDisable(false);
                     taskOptionsButton.setText(task.getButtonLabel());
                 }
             }

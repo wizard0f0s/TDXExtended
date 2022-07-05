@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.http.*;
+import java.time.LocalDate;
 
 
 public class TDX_Authentication {
 
     private String bearerToken;
+    private LocalDate bearerTokenExpiration;
     private String website;
     private String tdxBeid;
     private String tdxWebServicesKey;
