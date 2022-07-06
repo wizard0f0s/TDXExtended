@@ -74,6 +74,7 @@
 <!--                        <padding>-->
 <!--                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>-->
 <!--                        </padding>-->
+                        <Button fx:id="validateButton" text="Validate Options" onAction="#handleValidateButtonPress"/>
                         <Button fx:id="executeButton" text="Execute" onAction="#handleExecuteButtonPress"/>
                         <Label text="Status: " style="-fx-padding: 5 5 2 10;" >
                             <font>

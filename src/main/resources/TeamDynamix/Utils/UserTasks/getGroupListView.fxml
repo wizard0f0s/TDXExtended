@@ -6,20 +6,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.wizard0f0s.tdxextended.GetUserListController"
+            fx:controller="com.wizard0f0s.tdxextended.GetGroupListController"
             prefHeight="768.0" prefWidth="1024.0">
+
+    <top>
+        <Label text="Select the applicable groups:">
+            <font>
+                <Font name="Times New Roman bold" size="18"/>
+            </font>
+        </Label>
+    </top>
     <center>
-        <TableView fx:id="accountTableView"/>
+        <TableView fx:id="groupTableView"/>
 
     </center>
     <bottom>
         <HBox>
             <Label text="Found "/>
             <Label fx:id="numFoundLabel"/>
-            <Label text=" User accounts!"/>
+            <Label text=" Groups!"/>
         </HBox>
 
     </bottom>
+
 </BorderPane>

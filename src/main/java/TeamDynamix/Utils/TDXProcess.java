@@ -3,6 +3,7 @@ package TeamDynamix.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +16,15 @@ public abstract class TDXProcess {
     private int currentTaskIndex;
     private final String name;
     private final String description;
-
     private TDXTask currentTask;
+
 
 
     public abstract void saveTaskOutput(String key, Object obj);
     public abstract Object processTask(int taskIndex);
+    public abstract void validateInput(BorderPane mainBorderPane);
+    public abstract boolean getValidated();
+    public abstract void execute();
 
 
     public TDXProcess(String name, String description) {

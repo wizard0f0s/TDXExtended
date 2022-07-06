@@ -29,27 +29,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import static TeamDynamix.Utils.UserTools.autoResizeColumns;
+
 public class GetUserListController {
 
 
-    //    @FXML
-//    public ListView<String> fullNameListView;
-//    @FXML
-//    public ListView<String> emailListView;
-//    @FXML
-//    public ListView<String> usernameListView;
     @FXML
     public Label numFoundLabel;
     @FXML
-    public TableView accountTableView;
+    public TableView<UserListing> accountTableView;
     public Label tablePlaceHolder = new Label();
-
-    private static Method columnToFitMethod;
 
 
     public void initialize() {
-
-//        accountTableView = new TableView();
 
         TableColumn<UserListing, String> column1 = new TableColumn<>("First Name");
         column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -63,6 +55,18 @@ public class GetUserListController {
         TableColumn<UserListing, String> column4 = new TableColumn<>("Username");
         column4.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
+        TableColumn<UserListing, String> column5 = new TableColumn<>("Employee");
+        column5.setCellValueFactory(new PropertyValueFactory<>("employee"));
+
+        TableColumn<UserListing, String> column6 = new TableColumn<>("Active Account");
+        column6.setCellValueFactory(new PropertyValueFactory<>("active"));
+
+        TableColumn<UserListing, String> column7 = new TableColumn<>("Confidential");
+        column7.setCellValueFactory(new PropertyValueFactory<>("confidential"));
+
+        TableColumn<UserListing, String> column8 = new TableColumn<>("Account Type");
+        column8.setCellValueFactory(new PropertyValueFactory<>("typeID"));
+
         tablePlaceHolder.setText("Searching for accounts ...");
         accountTableView.setPlaceholder(tablePlaceHolder);
 
@@ -70,6 +74,10 @@ public class GetUserListController {
         accountTableView.getColumns().add(column2);
         accountTableView.getColumns().add(column3);
         accountTableView.getColumns().add(column4);
+        accountTableView.getColumns().add(column5);
+        accountTableView.getColumns().add(column6);
+        accountTableView.getColumns().add(column7);
+        accountTableView.getColumns().add(column8);
 
         ServerItem currentServer = ServerData.getInstance().getActiveServer();
 
@@ -97,7 +105,6 @@ public class GetUserListController {
 
                     try {
                         List<UserListing> userList = UserTools.getUserList(connection);
-                        TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("GetUserList", userList);
                         if (userList != null) {
                             System.out.println("Found " + userList.size() + " users!");
                             ((GetUserListTask) (TDXProcessData.getInstance().getCurrentProcess().getCurrentTask())).setUserList(FXCollections.observableList(userList));
@@ -136,30 +143,5 @@ public class GetUserListController {
         };
 
         new Thread(task).start();
-
-    }
-
-    private static void autoResizeColumns(TableView<?> table) {
-        //Set the right policy
-        table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        table.getColumns().stream().forEach((column) ->
-        {
-            //Minimal width = columnheader
-            Text t = new Text(column.getText());
-            double max = t.getLayoutBounds().getWidth();
-            for (int i = 0; i < table.getItems().size(); i++) {
-                //cell must not be empty
-                if (column.getCellData(i) != null) {
-                    t = new Text(column.getCellData(i).toString());
-                    double calcwidth = t.getLayoutBounds().getWidth();
-                    //remember new max-width
-                    if (calcwidth > max) {
-                        max = calcwidth;
-                    }
-                }
-            }
-            //set the new max-width with some extra space
-            column.setPrefWidth(max + 10.0d);
-        });
     }
 }

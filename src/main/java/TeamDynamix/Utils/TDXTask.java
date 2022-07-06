@@ -9,6 +9,7 @@ public interface TDXTask {
     String getButtonLabel();
     String getDescription();
     String getStatus();
+    String getResultString();
     void execute();
     String getStatusDescription();
     void displayOptions(BorderPane mainBorderPane);

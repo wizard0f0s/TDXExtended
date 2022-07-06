@@ -1,7 +1,9 @@
 package TeamDynamix.Utils;
 
 import TeamDynamix.Utils.Processes.UserGroupBulkProcess;
+import TeamDynamix.Utils.UserTasks.GetGroupListTask;
 import TeamDynamix.Utils.UserTasks.GetUserListTask;
+import TeamDynamix.Utils.UserTasks.GroupSearchQueryBuildTask;
 import TeamDynamix.Utils.UserTasks.UserQueryBuildTask;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,14 +46,20 @@ public class TDXProcessData {
         processList = FXCollections.observableArrayList();
 
         // this will need to read from a file in the future
-        UserQueryBuildTask task1 = new UserQueryBuildTask(1, "User Search Options", "Set Search Options",
+        TDXTask task1 = new UserQueryBuildTask(1, "User Search Options", "Set Search Options",
                 "These are bulk search parameters that provide identifying groupings of users.");
-        GetUserListTask task2 = new GetUserListTask(2, "Get List of Users", "Get User List",
+        TDXTask task2 = new GetUserListTask(2, "Get List of Users", "Get User List",
                 "Using the User Query tools, search for a list of users matching these parameters.");
+        TDXTask task3 = new GroupSearchQueryBuildTask(3, "Group Search Options", "Set Group Search Options",
+                "These are the bulk search parameters that provide a collection of groups to work with.");
+        TDXTask task4 = new GetGroupListTask(4, "Get List of Groups", "Get Group List",
+                "Using the Group Search Query tools, search for a list of groups matching these parameters.");
         TDXProcess userGroupBulkProcess = new UserGroupBulkProcess("User Group Bulk Management",
                 "These tasks provide bulk management tools for managing groupings of users and groups within TeamDynamix.");
         userGroupBulkProcess.addTask(task1);
         userGroupBulkProcess.addTask(task2);
+        userGroupBulkProcess.addTask(task3);
+        userGroupBulkProcess.addTask(task4);
         processList.add(userGroupBulkProcess);
     }
 

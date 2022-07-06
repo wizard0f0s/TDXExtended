@@ -41,12 +41,20 @@ public class MainController {
     private Button taskOptionsButton;
     @FXML
     private Label taskStatusLabel;
+    @FXML
+    private Button executeButton;
+    @FXML
+    private Button validateButton;
 
 
     public void initialize() {
         // More code to come ...
 
         taskOptionsButton.setDisable(true);
+        taskDescriptionTextArea.setEditable(false);
+        taskResultsTextArea.setEditable(false);
+        executeButton.setDisable(true);
+        validateButton.setDisable(true);
 
         if (ServerData.getInstance().getServerList().size() > 0) {
             boolean activeServer = false;
@@ -236,11 +244,40 @@ public class MainController {
     @FXML
     public void handleDisplayOptionsButtonPress() {
         taskListView.getSelectionModel().getSelectedItem().displayOptions(mainBorderPane);
+
+        boolean complete = true;
+
+        for (TDXTask task : TDXProcessData.getInstance().getCurrentProcess().getTasks()) {
+            if (!task.getStatus().equalsIgnoreCase("success")) {
+                complete = false;
+            }
+        }
+
+        taskStatusLabel.setText(taskListView.getSelectionModel().getSelectedItem().getStatus());
+        taskResultsTextArea.setText(taskListView.getSelectionModel().getSelectedItem().getResultString());
+
+        if (complete) {
+            validateButton.setDisable(false);
+        } else {
+            validateButton.setDisable(true);
+        }
     }
 
     @FXML
+    public void handleValidateButtonPress() {
+        processListView.getSelectionModel().getSelectedItem().validateInput(mainBorderPane);
+
+        if (TDXProcessData.getInstance().getCurrentProcess().getValidated()) {
+            executeButton.setDisable(false);
+        } else {
+            executeButton.setDisable(true);
+        }
+    }
+
+
+    @FXML
     public void handleExecuteButtonPress() {
-        taskListView.getSelectionModel().getSelectedItem().execute();
+        processListView.getSelectionModel().getSelectedItem().execute();
     }
 
     @FXML

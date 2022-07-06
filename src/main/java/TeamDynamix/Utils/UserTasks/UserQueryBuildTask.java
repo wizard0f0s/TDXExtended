@@ -85,6 +85,37 @@ public class UserQueryBuildTask implements TDXTask {
         this.userType = userType;
     }
 
+    @Override
+    public String getResultString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append("Active Users: " + isActive + "\n");
+        sb.append("Confidential Users: " + isConfidential + "\n");
+        sb.append("Employees: " + isEmployee + "\n");
+        sb.append("User type: ");
+
+        switch (userType) {
+            case 0 :
+                sb.append("None / All User Types\n");
+                break;
+            case 1 :
+                sb.append("Standard User\n");
+                break;
+            case 2 :
+                sb.append("Customer\n");
+                break;
+            case 8 :
+                sb.append("Resource Placeholder\n");
+                break;
+            case 9 :
+                sb.append("Service Account\n");
+                break;
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    }
+
     public String returnOutput() {
         return queryString;
     }
@@ -117,13 +148,14 @@ public class UserQueryBuildTask implements TDXTask {
             String isEmployee = "";
             int userType = 0;
 
-            System.out.println("isActiveComboBox = " + controller.isActiveComboBox.getValue());
             switch (controller.isActiveComboBox.getValue().toString()) {
                 case "Active Users" :
                     isActive = "true";
+                    this.isActive = true;
                     break;
                 case "NOT Active Users" :
                     isActive = "false";
+                    this.isActive = false;
                     break;
                 default :
                     break;
@@ -132,9 +164,11 @@ public class UserQueryBuildTask implements TDXTask {
             switch (controller.isConfidentialComboBox.getValue().toString()) {
                 case "Confidential Users" :
                     isConfidential = "true";
+                    this.isConfidential = true;
                     break;
                 case "NOT Confidential Users" :
                     isConfidential = "false";
+                    this.isConfidential = false;
                     break;
                 default :
                     break;
@@ -143,9 +177,11 @@ public class UserQueryBuildTask implements TDXTask {
             switch (controller.isEmployeeComboBox.getValue().toString()) {
                 case "Employees" :
                     isEmployee = "true";
+                    this.isEmployee = true;
                     break;
                 case "NON-Employees" :
                     isEmployee = "false";
+                    this.isEmployee = false;
                     break;
                 default :
                     break;
@@ -154,25 +190,29 @@ public class UserQueryBuildTask implements TDXTask {
             switch (controller.employeeTypeComboBox.getValue().toString()) {
                 case "None / All User Types" :
                     userType = 0;
+                    this.userType = 0;
                     break;
                 case "Standard User" :
                     userType = 1;
+                    this.userType = 1;
                     break;
                 case "Customer" :
                     userType = 2;
+                    this.userType = 2;
                     break;
                 case "Resource Placeholder" :
                     userType = 8;
+                    this.userType = 8;
                     break;
                 case "Service Account" :
                     userType = 9;
+                    this.userType = 9;
                     break;
                 default :
                     break;
             }
 
             String userQuery = QueryStrings.BuildUserListQuery(isActive, isConfidential, isEmployee, userType);
-            System.out.println(userQuery);
 
             TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("UserQueryBuild", userQuery);
             executed = true;

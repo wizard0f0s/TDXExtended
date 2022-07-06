@@ -162,6 +162,18 @@ public class GetUserListTask implements TDXTask {
         this.method = method;
     }
 
+    @Override
+    public String getResultString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append(userList.size() + " users found.");
+
+        sb.append("\n");
+
+        return sb.toString();
+    }
+
+
     public List<UserListing> returnOutput() {
         return userList;
     }
@@ -193,6 +205,11 @@ public class GetUserListTask implements TDXTask {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             GetUserListController controller = fxmlLoader.getController();
+
+            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("GetUserList", userList);
+
+            status = true;
+            executed = true;
         }
 
     }
