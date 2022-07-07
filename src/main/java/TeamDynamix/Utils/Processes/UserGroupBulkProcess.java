@@ -2,6 +2,7 @@ package TeamDynamix.Utils.Processes;
 
 import TeamDynamix.Utils.TDXProcess;
 import com.wizard0f0s.tdxextended.GetGroupListController;
+import com.wizard0f0s.tdxextended.UserGroupBulkValidateController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -50,9 +51,9 @@ public class UserGroupBulkProcess extends TDXProcess {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
-        dialog.setTitle("Search Results / Select Groups");
+        dialog.setTitle("Validate Options");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("getGroupListView.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("userGroupBulkValidateView.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
@@ -67,7 +68,7 @@ public class UserGroupBulkProcess extends TDXProcess {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            GetGroupListController controller = fxmlLoader.getController();
+            UserGroupBulkValidateController controller = fxmlLoader.getController();
             validated = true;
 
         } else {
