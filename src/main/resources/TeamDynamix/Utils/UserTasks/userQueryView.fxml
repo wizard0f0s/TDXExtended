@@ -21,7 +21,7 @@
     <ComboBox fx:id="isConfidentialComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity"/>
     <Label text="Are these employees?" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     <ComboBox fx:id="isEmployeeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="Infinity"/>
-    <Label text="Are these employees?" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <Label text="What type of accounts?" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     <ComboBox fx:id="employeeTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
 
 </GridPane>

@@ -109,7 +109,7 @@ public class MainController {
                     int currentIndex = process.getTasks().indexOf(task);
                     if (currentIndex == 0) {
                         taskOptionsButton.setDisable(false);
-                    } else if ((process.getTasks().get(currentIndex-1).getStatus().equalsIgnoreCase("success"))) {
+                    } else if ((process.getTasks().get(currentIndex - 1).getStatus().equalsIgnoreCase("success"))) {
                         taskOptionsButton.setDisable(false);
 
                     } else {
@@ -189,7 +189,7 @@ public class MainController {
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Couldn't load the dialog");
             e.printStackTrace();
             return;
@@ -199,7 +199,7 @@ public class MainController {
 //        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
         Optional<ButtonType> result = dialog.showAndWait();
-        if(result.isPresent() && result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             ServersController controller = fxmlLoader.getController();
             if (ServerData.getInstance().getServerList().size() > 0) {
                 boolean activeServer = false;
@@ -277,7 +277,27 @@ public class MainController {
 
     @FXML
     public void handleExecuteButtonPress() {
-        processListView.getSelectionModel().getSelectedItem().execute();
+
+
+        Runnable task = new Runnable() {
+
+            @Override
+
+            public void run() {
+
+                processListView.getSelectionModel().getSelectedItem().execute();
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        taskResultsTextArea.setText("The " + TDXProcessData.getInstance().getCurrentProcess().getName() + " process has completed.\n" +
+                                "With the following result:\n\n\n" +
+                                TDXProcessData.getInstance().getCurrentProcess().getResultMessage());
+                    }
+                });
+            }
+        };
+        new Thread(task).start();
     }
 
     @FXML

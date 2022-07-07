@@ -35,6 +35,7 @@ public class GetGroupListTask implements TDXTask {
     private String method;
     private GroupSearch searchQuery;
     private ObservableList<Group> groupList;
+    private static final String GET_GROUP_LIST_HASH_KEY = "GetGroupList";
 
     public GetGroupListTask(int order, String name, String buttonLabel, String description) {
         this.order = order;
@@ -150,7 +151,7 @@ public class GetGroupListTask implements TDXTask {
 
             this.groupList = FXCollections.observableList(groupList);
 
-            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("GetGroupList", groupList);
+            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput(GET_GROUP_LIST_HASH_KEY, groupList);
 
             if (groupList.size() > 0) {
                 status = true;

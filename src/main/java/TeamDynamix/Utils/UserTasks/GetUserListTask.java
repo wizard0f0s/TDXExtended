@@ -9,8 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wizard0f0s.tdxextended.GetUserListController;
 import com.wizard0f0s.tdxextended.ServerData;
 import com.wizard0f0s.tdxextended.ServerItem;
-import com.wizard0f0s.tdxextended.UserQueryController;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -21,11 +19,8 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static TeamDynamix.Utils.UserTools.getUserList;
 
 public class GetUserListTask implements TDXTask {
 
@@ -42,6 +37,7 @@ public class GetUserListTask implements TDXTask {
     private String apiPath;
     private String method;
     private ObservableList<UserListing> userList;
+    private static final String GET_USER_LIST_HASH_KEY = "GetUserList";
 
     public GetUserListTask(int order, String name, String buttonLabel, String description) {
         this.order = order;
@@ -206,7 +202,7 @@ public class GetUserListTask implements TDXTask {
         if(result.isPresent() && result.get() == ButtonType.OK) {
             GetUserListController controller = fxmlLoader.getController();
 
-            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("GetUserList", userList);
+            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput(GET_USER_LIST_HASH_KEY, userList);
 
             status = true;
             executed = true;

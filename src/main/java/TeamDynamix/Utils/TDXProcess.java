@@ -17,6 +17,8 @@ public abstract class TDXProcess {
     private final String name;
     private final String description;
     private TDXTask currentTask;
+    private String resultMessage = "";
+
 
 
 
@@ -63,4 +65,14 @@ public abstract class TDXProcess {
     public void setCurrentTask(TDXTask currentTask) {
         this.currentTask = currentTask;
     }
+
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    public void setResultMessage(String resultMessage) {
+        this.resultMessage = resultMessage;
+    }
+
+
 }

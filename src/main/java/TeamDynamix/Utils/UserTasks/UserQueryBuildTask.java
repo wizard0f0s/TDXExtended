@@ -3,9 +3,6 @@ package TeamDynamix.Utils.UserTasks;
 import TeamDynamix.Utils.QueryStrings;
 import TeamDynamix.Utils.TDXProcessData;
 import TeamDynamix.Utils.TDXTask;
-import com.wizard0f0s.tdxextended.ServerData;
-import com.wizard0f0s.tdxextended.ServerItem;
-import com.wizard0f0s.tdxextended.ServersController;
 import com.wizard0f0s.tdxextended.UserQueryController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
@@ -28,6 +25,7 @@ public class UserQueryBuildTask implements TDXTask {
     private boolean isEmployee;
     private int userType = 0;
     private String queryString = "ERROR";
+    private static final String USER_QUERY_HASH_KEY = "UserQueryBuild";
 
     public UserQueryBuildTask(int order, String name, String buttonLabel, String description) {
         this.order = order;
@@ -214,7 +212,7 @@ public class UserQueryBuildTask implements TDXTask {
 
             String userQuery = QueryStrings.BuildUserListQuery(isActive, isConfidential, isEmployee, userType);
 
-            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("UserQueryBuild", userQuery);
+            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput(USER_QUERY_HASH_KEY, userQuery);
             executed = true;
             status = true;
 

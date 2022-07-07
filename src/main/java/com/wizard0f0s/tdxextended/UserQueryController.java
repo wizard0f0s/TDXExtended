@@ -33,16 +33,19 @@ public class UserQueryController {
         isActiveList.add("Active Users");
         isActiveList.add("NOT Active Users");
         isActiveComboBox.setItems(isActiveList);
+        isActiveComboBox.getSelectionModel().selectFirst();
 
         isConfidentialList.add("N/A");
         isConfidentialList.add("Confidential Users");
         isConfidentialList.add("NOT Confidential Users");
         isConfidentialComboBox.setItems(isConfidentialList);
+        isConfidentialComboBox.getSelectionModel().selectFirst();
 
         isEmployeeList.add("N/A");
         isEmployeeList.add("Employees");
         isEmployeeList.add("NON-Employees");
         isEmployeeComboBox.setItems(isEmployeeList);
+        isEmployeeComboBox.getSelectionModel().selectFirst();
 
         employeeTypeList.add("None / All User Types");
         employeeTypeList.add("Standard User");
@@ -50,6 +53,7 @@ public class UserQueryController {
         employeeTypeList.add("Resource Placeholder");
         employeeTypeList.add("Service Account");
         employeeTypeComboBox.setItems(employeeTypeList);
+        employeeTypeComboBox.getSelectionModel().selectFirst();
 
 
     }

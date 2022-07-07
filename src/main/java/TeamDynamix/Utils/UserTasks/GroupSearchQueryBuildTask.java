@@ -1,11 +1,9 @@
 package TeamDynamix.Utils.UserTasks;
 
 import TeamDynamix.Api.Users.GroupSearch;
-import TeamDynamix.Utils.QueryStrings;
 import TeamDynamix.Utils.TDXProcessData;
 import TeamDynamix.Utils.TDXTask;
 import com.wizard0f0s.tdxextended.GroupSearchQueryController;
-import com.wizard0f0s.tdxextended.UserQueryController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -29,6 +27,7 @@ public class GroupSearchQueryBuildTask implements TDXTask {
     private String hasSystemAppName;
     private int associatedAppID;
     private String queryString = "ERROR";
+    private static final String GROUP_QUERY_HASH_KEY = "GroupSearchQueryBuild";
 
 
     public GroupSearchQueryBuildTask(int order, String name, String buttonLabel, String description) {
@@ -159,10 +158,13 @@ public class GroupSearchQueryBuildTask implements TDXTask {
             groupSearchQuery.setHasSystemAppName(hasSystemAppName);
             groupSearchQuery.setAssociatedAppId(associatedAppID);
 
-            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput("GroupSearchQueryBuild", groupSearchQuery);
+            TDXProcessData.getInstance().getCurrentProcess().saveTaskOutput(GROUP_QUERY_HASH_KEY, groupSearchQuery);
             executed = true;
             status = true;
 
+        } else {
+            status = false;
+            executed = false;
         }
     }
 }

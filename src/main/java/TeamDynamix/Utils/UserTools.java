@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserTools {
@@ -172,7 +173,8 @@ public class UserTools {
         return null;
     }
 
-    public static void setBulkGroups(HttpURLConnection connection, UserGroupsBulkManagement bulkManageGroupParams) throws JsonProcessingException {
+
+    public static boolean setBulkGroups(HttpURLConnection connection, UserGroupsBulkManagement bulkManageGroupParams) throws JsonProcessingException {
         boolean rateLimited = true;
         String jsonString = "";
 
@@ -183,9 +185,12 @@ public class UserTools {
                 ObjectMapper makeJson = new ObjectMapper();
                 JsonUtils.jsonPost(connection, makeJson.writeValueAsString(bulkManageGroupParams));
                 jsonString = JsonUtils.jsonGet(connection);
+                TDXProcessData.getInstance().getCurrentProcess().setResultMessage(connection.getResponseMessage());
+
                 System.out.println("jsonString = " + jsonString);
                 System.out.println("ResponseCode = " + connection.getResponseCode());
                 System.out.println("ResponseMessage = " + connection.getResponseMessage());
+
                 if ((connection.getResponseCode() == 429) || (connection.getResponseCode() == 401)) {
                     rateLimited = true;
                     getGroupListRateLimit.forceCheck();
@@ -196,8 +201,10 @@ public class UserTools {
             } catch (IOException e) {
                 System.out.println("UserTools:setBulkGroups: IO Error:\n");
                 e.printStackTrace();
+                return false;
             }
         }
+        return true;
     }
 
     public static void autoResizeColumns(TableView<?> table) {

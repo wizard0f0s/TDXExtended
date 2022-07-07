@@ -6,9 +6,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.wizard0f0s.tdxextended.UserGroupBulkValidateController"
             prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+    <top>
+        <VBox>
+            <Label text="Confirm the following selections before executing the process:">
+                <font>
+                    <Font name="Times New Roman bold" size="18"/>
+                </font>
+            </Label>
+            <Label text="These users will be added to the selected groups.">
+                <font>
+                    <Font name="Times New Roman bold" size="18"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    <center>
+        <GridPane>
+            <Label text="User Search Results:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextArea fx:id="userSearchTextArea" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label text="Group Search Results:" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextArea fx:id="groupSearchTextArea" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+    </center>
+    <bottom>
+        <VBox>
+            <Label text="Toggle the button below to keep (default) or remove the existing groups:"/>
+            <ToggleButton fx:id="removeGroupsToggleButton" text="Unselected - KEEP Current Groups"/>
+        </VBox>
+    </bottom>
+</BorderPane>

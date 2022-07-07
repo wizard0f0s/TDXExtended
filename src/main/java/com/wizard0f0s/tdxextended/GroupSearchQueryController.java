@@ -29,6 +29,7 @@ public class GroupSearchQueryController {
         isActiveList.add("Active Groups");
         isActiveList.add("NOT Active Groups");
         isActiveComboBox.setItems(isActiveList);
+        isActiveComboBox.getSelectionModel().selectFirst();
 
         hasAppIDTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
