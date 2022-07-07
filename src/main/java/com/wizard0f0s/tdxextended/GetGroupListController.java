@@ -2,11 +2,8 @@ package com.wizard0f0s.tdxextended;
 
 import TeamDynamix.Api.Users.Group;
 import TeamDynamix.Api.Users.GroupSearch;
-import TeamDynamix.Api.Users.UserListing;
 import TeamDynamix.Utils.TDXProcessData;
-import TeamDynamix.Utils.TDX_Authentication;
 import TeamDynamix.Utils.UserTasks.GetGroupListTask;
-import TeamDynamix.Utils.UserTasks.GetUserListTask;
 import TeamDynamix.Utils.UserTools;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Platform;

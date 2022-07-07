@@ -7,9 +7,6 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "SecurityRoleId",
-        "SecurityRoleName",
-        "IsAdministrator",
         "ID",
         "Name",
         "Description",
@@ -18,14 +15,8 @@ import java.util.Map;
         "IsActive"
 })
 
-public class UserApplication {
+public class Application {
 
-    @JsonProperty("SecurityRoleId")
-    private String securityRoleId;
-    @JsonProperty("SecurityRoleName")
-    private String securityRoleName;
-    @JsonProperty("IsAdministrator")
-    private boolean isAdministrator;
     @JsonProperty("ID")
     private Integer id;
     @JsonProperty("Name")
@@ -39,38 +30,7 @@ public class UserApplication {
     @JsonProperty("IsActive")
     private boolean isActive;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-
-    @JsonProperty("SecurityRoleId")
-    public String getSecurityRoleId() {
-        return securityRoleId;
-    }
-
-    @JsonProperty("SecurityRoleId")
-    public void setSecurityRoleId(String securityRoleId) {
-        this.securityRoleId = securityRoleId;
-    }
-
-    @JsonProperty("SecurityRoleName")
-    public String getSecurityRoleName() {
-        return securityRoleName;
-    }
-
-    @JsonProperty("SecurityRoleName")
-    public void setSecurityRoleName(String securityRoleName) {
-        this.securityRoleName = securityRoleName;
-    }
-
-    @JsonProperty("IsAdministrator")
-    public boolean getIsAdministrator() {
-        return isAdministrator;
-    }
-
-    @JsonProperty("IsAdministrator")
-    public void setIsAdministrator(boolean isAdministrator) {
-        this.isAdministrator = isAdministrator;
-    }
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     @JsonProperty("ID")
     public Integer getId() {
@@ -113,33 +73,33 @@ public class UserApplication {
     }
 
     @JsonProperty("IsDefault")
-    public boolean getIsDefault() {
+    public boolean isDefault() {
         return isDefault;
     }
 
     @JsonProperty("IsDefault")
-    public void setIsDefault(boolean isDefault) {
-        this.isDefault = isDefault;
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 
     @JsonProperty("IsActive")
-    public boolean getIsActive() {
+    public boolean isActive() {
         return isActive;
     }
 
     @JsonProperty("IsActive")
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+        this.additionalProperties = additionalProperties;
     }
 
 }

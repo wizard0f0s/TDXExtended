@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.ListIterator;
 
 public class ServersController {
 

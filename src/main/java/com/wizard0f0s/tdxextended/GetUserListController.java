@@ -1,7 +1,6 @@
 package com.wizard0f0s.tdxextended;
 
 import TeamDynamix.Api.Users.UserListing;
-import TeamDynamix.Utils.TDXProcess;
 import TeamDynamix.Utils.TDXProcessData;
 import TeamDynamix.Utils.TDX_Authentication;
 import TeamDynamix.Utils.UserTasks.GetUserListTask;
@@ -9,22 +8,13 @@ import TeamDynamix.Utils.UserTools;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.TableViewSkin;
-import javafx.scene.layout.GridPane;
-import javafx.scene.control.skin.TableColumnHeader;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;

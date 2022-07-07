@@ -1,19 +1,15 @@
 package TeamDynamix.Utils.Processes;
 
 import TeamDynamix.Api.Users.Group;
-import TeamDynamix.Api.Users.GroupSearch;
 import TeamDynamix.Api.Users.UserGroupsBulkManagement;
 import TeamDynamix.Api.Users.UserListing;
 import TeamDynamix.Utils.TDXProcess;
 import TeamDynamix.Utils.TDXProcessData;
-import TeamDynamix.Utils.UserTasks.GetGroupListTask;
 import TeamDynamix.Utils.UserTools;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wizard0f0s.tdxextended.ServerData;
 import com.wizard0f0s.tdxextended.ServerItem;
 import com.wizard0f0s.tdxextended.UserGroupBulkValidateController;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -25,8 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static TeamDynamix.Utils.UserTools.autoResizeColumns;
 
 public class UserGroupBulkProcess extends TDXProcess {
 

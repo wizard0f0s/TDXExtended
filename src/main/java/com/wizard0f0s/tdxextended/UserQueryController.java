@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
-import java.util.ArrayList;
-
 public class UserQueryController {
 
     @FXML

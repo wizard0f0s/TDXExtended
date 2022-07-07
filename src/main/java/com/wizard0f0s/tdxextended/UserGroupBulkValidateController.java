@@ -2,7 +2,6 @@ package com.wizard0f0s.tdxextended;
 
 import TeamDynamix.Utils.TDXProcessData;
 import TeamDynamix.Utils.TDXTask;
-import TeamDynamix.Utils.UserTasks.GetUserListTask;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
