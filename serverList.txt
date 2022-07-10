@@ -1,3 +1,0 @@
-TCTC TDX Sandbox	https://services.tctc.edu/SBTDWebApi/	FFAB90E6-5500-4E59-8E5F-62EBAEB2BA85	774D7EF1-DA0C-4BC3-B269-0681092B8BB1	true	true
-TCTC TDX Production	https://services.tctc.edu/TDWebApi/	FFAB90E6-5500-4E59-8E5F-62EBAEB2BA85	03DCF2CE-1682-4C24-8C38-59DD35708B83	true	false
-TDX User Sandbox	https://services.tctc.edu/SBTDWebApi/	webapi_test@tctc.edu	#Reset123#	false	false
