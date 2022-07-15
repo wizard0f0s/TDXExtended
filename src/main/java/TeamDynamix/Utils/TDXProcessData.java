@@ -60,6 +60,9 @@ public class TDXProcessData {
         userGroupBulkProcess.addTask(task2);
         userGroupBulkProcess.addTask(task3);
         userGroupBulkProcess.addTask(task4);
+
+        //Add new processes and tasks here
+
         processList.add(userGroupBulkProcess);
     }
 

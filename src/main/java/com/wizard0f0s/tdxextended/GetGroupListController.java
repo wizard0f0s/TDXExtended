@@ -22,6 +22,9 @@ import java.util.List;
 
 import static TeamDynamix.Utils.UserTools.autoResizeColumns;
 
+/**
+ * JavaFX Controller
+ */
 public class GetGroupListController {
 
     @FXML
@@ -86,7 +89,7 @@ public class GetGroupListController {
                     try {
                         List<Group> groupList = UserTools.getGroupList(connection, groupQuery);
                         if (groupList != null) {
-                            System.out.println("Found " + groupList.size() + " users!");
+                            System.out.println("Found " + groupList.size() + " groups!");
                             ((GetGroupListTask) (TDXProcessData.getInstance().getCurrentProcess().getCurrentTask())).setGroupList(FXCollections.observableList(groupList));
                         } else {
                             System.out.println("Group list is null!");
